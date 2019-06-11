@@ -1,0 +1,10 @@
+# This folder contains cleaned data, namely that of a poetry corpus and prose
+# corpus both subdivided by genre, a pronunciation dictionary, and a synonym
+# dictionary (thesaurus). They are accessed by tools in the resources package.
+
+# Expanding this data is not difficult. The corpus is entirely gleaned from
+# Project Gutenberg. Certain operations to make the data amenable to reading
+# were carried out, such as removing line numbers and [comments]. If you wish
+# to add your own genres of poetry and prose, simply make subfolders. They
+# will be detected and added to the options presented to you, and by default
+# will be loaded with all the other genres.
