@@ -6,4 +6,8 @@ This is a(n incomplete) prose-to-poetry converter made as a culminating project 
 
 * Written for Python 3.5, probably still works in Python 3.10 
 * NLTK + various components to use some features
-* A downloaded copy of the CMUdict to use some features
+  * cmudict
+  * pos_tagging
+  * stopwords
+  * plaintext corpus reader
+  * wordnet
