@@ -203,7 +203,7 @@ def syllabify(pron: list) -> list:
         phon = pron[i]
         
         # Find a vowel
-        if re.search('\d', phon):
+        if re.search('\d', phon): # TODO this generates a warning but seems to work
             
             # Start building the syllable with its nucleus
             stress = int(phon[-1])
@@ -217,7 +217,7 @@ def syllabify(pron: list) -> list:
             j, onset = i - 1, []
             while j >= 0:
                 ons_phon = pron[j]
-                if ((not re.search('\d', ons_phon))
+                if (not re.search('\d', ons_phon) # TODO here too
                      or onset and onset[0] in C_CLUSTERS_I.get(ons_phon, [])):
                     onset.insert(0, ons_phon)
                 else:
@@ -242,7 +242,7 @@ def syllabify(pron: list) -> list:
 def _is_dash(s: str) -> bool:
     """Return True if the given s consists entirely of hyphens."""
     
-    return all(_is_hyphenated(c) for c in s)
+    return all(c == 's' for c in s)
 
 
 def _is_hyphenated(s: str) -> bool:
@@ -254,19 +254,23 @@ def _is_hyphenated(s: str) -> bool:
 def _is_number(s: str) -> bool:
     """Return True iff the given s represents a cardinal number."""
     
-    return bool(re.search('\d', s))
+    try:
+        int(s)
+        return True
+    except:
+        return False
 
 
 def _is_negative(s: str) -> bool:
     """Return True iff the given s represents a negative number."""
     
-    return len(s) > 1 and s[0] is '-'
+    return len(s) > 1 and _is_number(s[1:]) and s[0] == '-'
 
 
 def _is_ordinal(s: str) -> bool:
     """Return True iff the given s represents an ordinal number."""
     
-    return len(s) > 2 and s[-2:] in {'nd', 'rd', 'st', 'th'}
+    return len(s) > 2 and _is_number(s[:-2]) and s[-2:] in {'nd', 'rd', 'st', 'th'}
 
 
 def _normalize_verbal(s: str) -> str:
